@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import EazyLabsLogo from '../../public/EazyLabs logo.png';
 
 export const Hero = () => {
   return (
@@ -10,8 +11,8 @@ export const Hero = () => {
       
       <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
         <img
-          src="/eazlabs-logo.png"
-          alt="Eazlabs Logo"
+          src={EazyLabsLogo}
+          alt="EazyLabs Logo"
           className="mx-auto mb-6 max-w-xs md:max-w-sm drop-shadow-[0_0_30px_rgba(0,255,65,0.7)]"
           style={{ filter: 'brightness(1.2) drop-shadow(0 0 20px #00ff41)' }}
         />

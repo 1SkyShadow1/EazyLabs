@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { LanguageTranslator } from "./LanguageTranslator";
 import { CurrencyConverter } from "./CurrencyConverter";
+import EazyLabsLogo from '../../public/EazyLabs logo.png';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,15 +36,31 @@ export const Navigation = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-2xl font-orbitron font-bold text-green-400 matrix-glow"
-          >
-            EAZY<span className="text-white">LABS</span>
-          </motion.div>
+          <div className="flex items-center gap-6">
+            <img
+              src={EazyLabsLogo}
+              alt="EazyLabs Logo"
+              className="h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(0,255,65,0.7)]"
+              style={{ 
+                filter: 'brightness(1.2) drop-shadow(0 0 10px #00ff41)',
+                minWidth: '32px',
+                maxWidth: '80px'
+              }}
+              onError={(e) => {
+                console.error('Logo failed to load');
+                e.currentTarget.src = '/placeholder.svg';
+              }}
+            />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="text-xl font-orbitron font-bold text-green-400 matrix-glow"
+            >
+              EAZY<span className="text-white">LABS</span>
+            </motion.div>
+          </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 ml-8">
             {navItems.map((item) => (
               <motion.a
                 key={item.label}

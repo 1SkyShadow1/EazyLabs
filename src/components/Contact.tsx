@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, Github, Linkedin, Send, MapPin } from "lucide-react";
 import { toast } from "sonner";
+import EazyLabsLogo from '../../public/EazyLabs logo.png';
 
 export const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
@@ -190,6 +190,16 @@ export const Contact = () => {
           </motion.div>
         </div>
       </div>
+      <footer className="w-full py-8 bg-black/80 border-t border-green-400/20 mt-12 flex flex-col items-center">
+        <img
+          src={EazyLabsLogo}
+          alt="EazyLabs Logo Footer"
+          className="h-14 w-14 object-contain mb-2 drop-shadow-[0_0_10px_rgba(0,255,65,0.7)]"
+          style={{ filter: 'brightness(1.2) drop-shadow(0 0 10px #00ff41)' }}
+        />
+        <span className="text-green-400 font-orbitron text-lg mt-2">EAZYLABS</span>
+        <span className="text-green-300 text-xs mt-1">&copy; {new Date().getFullYear()} EazyLabs. All rights reserved.</span>
+      </footer>
     </section>
   );
 };

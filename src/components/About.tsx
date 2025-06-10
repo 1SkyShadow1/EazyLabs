@@ -29,10 +29,7 @@ export const About = () => {
           >
             <h3 className="text-2xl font-audiowide text-green-400 mb-4">MY DIGITAL JOURNEY</h3>
             <p className="text-green-200 leading-relaxed font-exo">
-              From the vibrant landscapes of Zimbabwe to the digital frontiers of technology, 
-              my journey has been one of constant evolution and learning. With a foundation 
-              in hospitality and marketing, I've discovered the power of combining human 
-              connection with technological innovation.
+              From cooking and photography to tech, my journey has been one of constant evolution and learning. With a foundation in hospitality and marketing, I've discovered the power of combining human connection with technological innovation.
             </p>
             <p className="text-green-200 leading-relaxed font-exo">
               Today, I specialize in creating immersive digital experiences that don't just 

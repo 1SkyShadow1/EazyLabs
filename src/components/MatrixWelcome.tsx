@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import EazyLabsLogo from '../../public/EazyLabs logo.png';
 
 export const MatrixWelcome = ({ onEnter }: { onEnter: () => void }) => {
   const [showButton, setShowButton] = useState(false);
@@ -62,8 +63,8 @@ export const MatrixWelcome = ({ onEnter }: { onEnter: () => void }) => {
       {/* Welcome Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <img
-          src="/eazlabs-logo.png"
-          alt="Eazlabs Logo"
+          src={EazyLabsLogo}
+          alt="EazyLabs Logo"
           className="mx-auto mb-8 max-w-xs md:max-w-sm drop-shadow-[0_0_30px_rgba(0,255,65,0.7)]"
           style={{ filter: 'brightness(1.2) drop-shadow(0 0 20px #00ff41)' }}
         />
