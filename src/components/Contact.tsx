@@ -6,11 +6,48 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, Github, Linkedin, Send, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import EazyLabsLogo from '../../public/EazyLabs logo.png';
+import { useState } from "react";
+import { supabase } from "../lib/supabaseClient";
 
 export const Contact = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! I'll get back to you within 24 hours.");
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([formData]);
+
+      if (error) throw error;
+
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      toast.success("Message sent! I'll get back to you within 24 hours.");
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const contactInfo = [
