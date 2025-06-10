@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
+# EazyLabs
 
-## Project info
+A Matrix-themed software developer portfolio for Evans Ncube (Eazlabs).
 
-**URL**: https://lovable.dev/projects/3137eee9-3965-4270-ab74-36a673b8d457
+## Overview
+EazyLabs is a visually immersive, Matrix-inspired portfolio website designed to showcase the skills, projects, and expertise of Evans Ncube. The site features:
+- Animated Matrix rain and futuristic UI
+- Prominent Eazlabs branding and logo
+- AI-powered and full-stack project highlights
+- Modern, responsive design
+- Interactive project estimator and contact form
 
-## How can I edit this code?
+## Features
+- **Matrix Welcome Screen:** Animated intro with interactive choices
+- **Hero Section:** Skills, background, and Eazlabs logo
+- **About:** Digital journey, core technologies, and philosophy
+- **Portfolio:** Showcases advanced projects (AI, full-stack, blockchain, etc.)
+- **Estimator:** AI-powered project cost estimator
+- **Contact:** Modern form and social links
+- **Fully Responsive:** Works on all devices
 
-There are several ways of editing your application.
+## Technologies Used
+- **Frontend:** React, TypeScript, Tailwind CSS, Framer Motion
+- **Backend (for API/estimator):** Node.js (optional for deployment)
+- **Other:** Docker, GitHub Actions (for CI/CD), Vite
 
-**Use Lovable**
+## Getting Started
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/1SkyShadow1/EazyLabs.git
+   cd EazyLabs
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+4. **Open in your browser:**
+   Visit [http://localhost:5173](http://localhost:5173)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3137eee9-3965-4270-ab74-36a673b8d457) and start prompting.
+## Customization
+- Update your profile, skills, and projects in the `src/components` directory.
+- Replace the logo in `public/eazlabs-logo.png` if needed.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Deployment
+- Easily deployable to Vercel, Netlify, or any static hosting provider.
+- For custom backend/API, deploy Node.js server as needed.
 
-**Use your preferred IDE**
+## License
+This project is open source and available under the [MIT License](LICENSE).
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/3137eee9-3965-4270-ab74-36a673b8d457) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+**EazyLabs** — Crafted by Evans Ncube
