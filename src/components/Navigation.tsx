@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { LanguageTranslator } from "./LanguageTranslator";
-import { CurrencyConverter } from "./CurrencyConverter";
 import EazyLabsLogo from '../../public/EazyLabs logo.png';
 
 export const Navigation = () => {
@@ -20,46 +18,25 @@ export const Navigation = () => {
   const navItems = [
     { label: "Home", href: "#home" },
     { label: "About", href: "#about" },
-    { label: "Portfolio", href: "#portfolio" },
+    { label: "Projects", href: "#portfolio" },
     { label: "AI Estimator", href: "#estimator" },
     { label: "Blog", href: "#blog" },
     { label: "Contact", href: "#contact" },
   ];
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "backdrop-blur-lg bg-black/60 border-b border-green-400/20" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          <div className="flex items-center gap-6">
-            <img
-              src={EazyLabsLogo}
-              alt="EazyLabs Logo"
-              className="h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(0,255,65,0.7)]"
-              style={{ 
-                filter: 'brightness(1.2) drop-shadow(0 0 10px #00ff41)',
-                minWidth: '32px',
-                maxWidth: '80px'
-              }}
-              onError={(e) => {
-                console.error('Logo failed to load');
-                e.currentTarget.src = '/placeholder.svg';
-              }}
-            />
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="text-xl font-orbitron font-bold text-green-400 matrix-glow"
-            >
-              EAZY<span className="text-white">LABS</span>
-            </motion.div>
-          </div>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-lg' : 'bg-transparent'}`}>
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          <motion.a
+            href="#home"
+            className="flex items-center space-x-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <img src={EazyLabsLogo} alt="EazyLabs Logo" className="h-12 w-auto" />
+          </motion.a>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6 ml-8">
             {navItems.map((item) => (
               <motion.a
@@ -85,16 +62,6 @@ export const Navigation = () => {
                 <div className="absolute inset-0 bg-green-400/5 animate-liquid-glass"></div>
               </motion.a>
             ))}
-          </div>
-
-          {/* AI Features */}
-          <div className="hidden lg:flex items-center space-x-6">
-            <div className="no-translate">
-              <CurrencyConverter />
-            </div>
-            <div className="no-translate">
-              <LanguageTranslator />
-            </div>
           </div>
 
           {/* Mobile Navigation Toggle */}
@@ -123,47 +90,9 @@ export const Navigation = () => {
                 {item.label}
               </a>
             ))}
-            
-            {/* Mobile AI Features */}
-            <div className="px-4 space-y-4 border-t border-green-400/20 pt-4 no-translate">
-              <div className="flex flex-col space-y-2">
-                <span className="text-green-400 text-sm font-tech">CURRENCY</span>
-                <CurrencyConverter />
-              </div>
-              <div className="flex flex-col space-y-2">
-                <span className="text-green-400 text-sm font-tech">LANGUAGE</span>
-                <LanguageTranslator />
-              </div>
-            </div>
           </motion.div>
         )}
       </div>
-
-      <style>{`
-        .matrix-glow {
-          text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
-          animation: pulse-glow 2s ease-in-out infinite alternate;
-        }
-        
-        .liquid-glass-nav {
-          backdrop-filter: blur(10px);
-          background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(0, 255, 65, 0.05));
-          border: 1px solid rgba(0, 255, 65, 0.2);
-          transition: all 0.3s ease;
-        }
-        
-        .liquid-glass-nav:hover {
-          backdrop-filter: blur(15px);
-          background: linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(0, 255, 65, 0.1));
-          border: 1px solid rgba(0, 255, 65, 0.4);
-          box-shadow: 0 8px 32px rgba(0, 255, 65, 0.2);
-        }
-        
-        @keyframes pulse-glow {
-          from { text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41; }
-          to { text-shadow: 0 0 15px #00ff41, 0 0 25px #00ff41, 0 0 35px #00ff41; }
-        }
-      `}</style>
-    </motion.nav>
+    </nav>
   );
 };

@@ -1,8 +1,5 @@
-
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
 
 export const Portfolio = () => {
   const projects = [
@@ -11,8 +8,6 @@ export const Portfolio = () => {
       description: "Full-stack e-commerce solution with machine learning recommendation engine, real-time inventory management, and advanced analytics dashboard",
       image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
       tech: ["React", "Node.js", "Python", "TensorFlow", "MongoDB", "Redis"],
-      liveUrl: "#",
-      githubUrl: "#",
       category: "Full-Stack + AI",
       price: "25000"
     },
@@ -21,8 +16,6 @@ export const Portfolio = () => {
       description: "Advanced AI system for automated content creation using GPT models with custom prompt engineering and fine-tuning capabilities",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop",
       tech: ["Python", "OpenAI API", "FastAPI", "React", "PostgreSQL"],
-      liveUrl: "#",
-      githubUrl: "#",
       category: "AI Engineering",
       price: "18000"
     },
@@ -31,40 +24,56 @@ export const Portfolio = () => {
       description: "Enterprise-grade collaboration tool with live editing, video conferencing, project management, and AI-powered insights",
       image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
       tech: ["React", "Socket.io", "WebRTC", "Node.js", "Docker", "Kubernetes"],
-      liveUrl: "#",
-      githubUrl: "#",
       category: "Full-Stack",
       price: "32000"
     },
     {
-      title: "Blockchain DeFi Application",
-      description: "Decentralized finance platform with smart contracts, yield farming, and automated market making protocols",
-      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop",
-      tech: ["Solidity", "Web3.js", "React", "Hardhat", "IPFS"],
-      liveUrl: "#",
-      githubUrl: "#",
-      category: "Blockchain",
+      title: "Smart Tourism Experience Platform",
+      description: "AI-driven tourism platform showcasing South Africa's hidden gems, with AR-guided tours, local experiences, and real-time translation for international visitors",
+      image: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=600&h=400&fit=crop",
+      tech: ["React Native", "AR Kit", "Node.js", "MongoDB", "Google Maps API", "TensorFlow"],
+      category: "Mobile + AI",
       price: "45000"
     },
     {
-      title: "AI-Driven Analytics Dashboard",
-      description: "Business intelligence platform with machine learning insights, predictive analytics, and automated reporting systems",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      tech: ["Python", "Pandas", "Scikit-learn", "D3.js", "Flask", "PostgreSQL"],
-      liveUrl: "#",
-      githubUrl: "#",
-      category: "Data Science",
-      price: "28000"
+      title: "Renewable Energy Management System",
+      description: "Smart grid solution for optimizing renewable energy distribution, with real-time monitoring, predictive maintenance, and blockchain-based energy trading",
+      image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop",
+      tech: ["Python", "IoT", "Blockchain", "React", "TensorFlow", "PostgreSQL"],
+      category: "IoT + AI",
+      price: "55000"
     },
     {
-      title: "Microservices Architecture",
-      description: "Scalable microservices ecosystem with API gateway, service mesh, monitoring, and automated deployment pipelines",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop",
-      tech: ["Docker", "Kubernetes", "Go", "gRPC", "Prometheus", "Grafana"],
-      liveUrl: "#",
-      githubUrl: "#",
-      category: "Backend Architecture",
-      price: "35000"
+      title: "Digital Healthcare Platform",
+      description: "Comprehensive healthcare solution with telemedicine, AI diagnostics, patient management, and integration with South African healthcare systems",
+      image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=400&fit=crop",
+      tech: ["React", "Node.js", "Python", "TensorFlow", "HIPAA", "MongoDB"],
+      category: "Healthcare + AI",
+      price: "48000"
+    },
+    {
+      title: "Smart Agriculture System",
+      description: "IoT-based agricultural solution for precision farming, crop monitoring, automated irrigation, and market price predictions for African farmers",
+      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=400&fit=crop",
+      tech: ["IoT", "Python", "React", "TensorFlow", "PostgreSQL", "AWS"],
+      category: "IoT + AI",
+      price: "42000"
+    },
+    {
+      title: "Financial Inclusion Platform",
+      description: "Mobile-first banking solution for underserved communities, featuring microloans, savings plans, and AI-powered financial education",
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
+      tech: ["React Native", "Node.js", "Python", "TensorFlow", "MongoDB", "Blockchain"],
+      category: "FinTech",
+      price: "38000"
+    },
+    {
+      title: "Smart City Infrastructure",
+      description: "Urban management system for traffic optimization, waste management, and public service delivery using IoT and AI",
+      image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&h=400&fit=crop",
+      tech: ["IoT", "Python", "React", "TensorFlow", "PostgreSQL", "AWS"],
+      category: "Smart City",
+      price: "65000"
     }
   ];
 
@@ -79,10 +88,10 @@ export const Portfolio = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent font-mono">
-            PROJECT MATRIX
+            UPCOMING PROJECTS
           </h2>
           <p className="text-lg text-green-300 max-w-3xl mx-auto font-mono">
-            Advanced solutions in AI, full-stack development, and emerging technologies
+            Innovative solutions for South Africa and beyond, combining cutting-edge technology with local expertise
           </p>
         </motion.div>
 
@@ -109,46 +118,24 @@ export const Portfolio = () => {
                     </span>
                   </div>
                   <div className="absolute bottom-4 left-4">
-                    <span className="px-2 py-1 bg-blue-500/80 text-white text-sm font-mono" data-price={project.price}>
+                    <span className="px-2 py-1 bg-blue-500/80 text-white text-sm font-mono">
                       R{project.price}
                     </span>
                   </div>
                 </div>
                 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-green-300 group-hover:text-green-400 transition-colors font-mono">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-300 mb-4 text-sm leading-relaxed">
-                    {project.description}
-                  </p>
-                  
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <h3 className="text-xl font-bold text-green-400 mb-2 font-mono">{project.title}</h3>
+                  <p className="text-green-300 mb-4 font-mono">{project.description}</p>
+                  <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded border border-green-400/30 font-mono"
+                        className="px-2 py-1 bg-green-400/10 text-green-400 text-xs rounded font-mono"
                       >
                         {tech}
                       </span>
                     ))}
-                  </div>
-                  
-                  <div className="flex gap-3">
-                    <Button
-                      size="sm"
-                      className="flex-1 bg-green-500 hover:bg-green-600 text-black font-mono"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      DEMO
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="border-green-400 text-green-400 hover:bg-green-400 hover:text-black font-mono"
-                    >
-                      <Github className="w-4 h-4" />
-                    </Button>
                   </div>
                 </div>
               </Card>

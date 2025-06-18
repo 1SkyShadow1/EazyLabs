@@ -157,15 +157,52 @@ export const AIEstimator = () => {
         currency: 'ZAR'
       };
       
-      console.log('Project brief submitted:', briefData);
+      console.log('Submitting project brief:', briefData);
       
-      // In a real app, you would send this to your backend
-      // await fetch('/api/submit-brief', { method: 'POST', body: JSON.stringify(briefData) });
+      // Submit to Formspree
+      const response = await fetch('https://formspree.io/f/xpwrljva', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `New Project Brief - ${projectData.type}`,
+          ...briefData
+        }),
+      });
+
+      console.log('Formspree response status:', response.status);
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        console.error('Formspree error response:', errorData);
+        throw new Error(`Failed to submit project brief: ${response.status} ${response.statusText}`);
+      }
+      
+      const responseData = await response.json();
+      console.log('Formspree success response:', responseData);
       
       toast.success("Project brief submitted successfully! I'll contact you within 24 hours.");
+      // Reset form after successful submission
+      setProjectData({
+        type: "",
+        features: [],
+        complexity: "",
+        timeline: "",
+        design: "",
+        integrations: [],
+        maintenance: "",
+        hosting: "",
+        description: "",
+        budget: "",
+        contact: { name: "", email: "", company: "", phone: "" }
+      });
+      setEstimate(0);
+      setStep(1);
     } catch (error) {
       console.error('Submit error:', error);
-      toast.error("Failed to submit brief. Please try again.");
+      toast.error(error instanceof Error ? error.message : "Failed to submit brief. Please try again.");
     }
   };
 
@@ -472,75 +509,84 @@ Generated: ${new Date().toLocaleDateString()}
                 <p className="text-green-300 font-mono">This is an estimated range. Final pricing will be determined after detailed consultation.</p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <Input
-                  placeholder="Your Name *"
-                  value={projectData.contact.name}
-                  onChange={(e) => setProjectData(prev => ({
-                    ...prev,
-                    contact: { ...prev.contact, name: e.target.value }
-                  }))}
-                  className="bg-black/60 border-green-400/30 text-green-300 font-mono placeholder:text-green-300/50 focus:border-green-400 transition-all duration-300"
-                />
-                <Input
-                  placeholder="Email *"
-                  type="email"
-                  value={projectData.contact.email}
-                  onChange={(e) => setProjectData(prev => ({
-                    ...prev,
-                    contact: { ...prev.contact, email: e.target.value }
-                  }))}
-                  className="bg-black/60 border-green-400/30 text-green-300 font-mono placeholder:text-green-300/50 focus:border-green-400 transition-all duration-300"
-                />
-                <Input
-                  placeholder="Company (Optional)"
-                  value={projectData.contact.company}
-                  onChange={(e) => setProjectData(prev => ({
-                    ...prev,
-                    contact: { ...prev.contact, company: e.target.value }
-                  }))}
-                  className="bg-black/60 border-green-400/30 text-green-300 font-mono placeholder:text-green-300/50 focus:border-green-400 transition-all duration-300"
-                />
-                <Input
-                  placeholder="Phone Number"
-                  value={projectData.contact.phone}
-                  onChange={(e) => setProjectData(prev => ({
-                    ...prev,
-                    contact: { ...prev.contact, phone: e.target.value }
-                  }))}
-                  className="bg-black/60 border-green-400/30 text-green-300 font-mono placeholder:text-green-300/50 focus:border-green-400 transition-all duration-300"
-                />
-              </div>
+              <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <Input
+                    name="name"
+                    placeholder="Your Name *"
+                    value={projectData.contact.name}
+                    onChange={(e) => setProjectData(prev => ({
+                      ...prev,
+                      contact: { ...prev.contact, name: e.target.value }
+                    }))}
+                    required
+                    className="bg-black/60 border-green-400/30 text-green-300 font-mono placeholder:text-green-300/50 focus:border-green-400 transition-all duration-300"
+                  />
+                  <Input
+                    name="email"
+                    placeholder="Email *"
+                    type="email"
+                    value={projectData.contact.email}
+                    onChange={(e) => setProjectData(prev => ({
+                      ...prev,
+                      contact: { ...prev.contact, email: e.target.value }
+                    }))}
+                    required
+                    className="bg-black/60 border-green-400/30 text-green-300 font-mono placeholder:text-green-300/50 focus:border-green-400 transition-all duration-300"
+                  />
+                  <Input
+                    name="company"
+                    placeholder="Company (Optional)"
+                    value={projectData.contact.company}
+                    onChange={(e) => setProjectData(prev => ({
+                      ...prev,
+                      contact: { ...prev.contact, company: e.target.value }
+                    }))}
+                    className="bg-black/60 border-green-400/30 text-green-300 font-mono placeholder:text-green-300/50 focus:border-green-400 transition-all duration-300"
+                  />
+                  <Input
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={projectData.contact.phone}
+                    onChange={(e) => setProjectData(prev => ({
+                      ...prev,
+                      contact: { ...prev.contact, phone: e.target.value }
+                    }))}
+                    className="bg-black/60 border-green-400/30 text-green-300 font-mono placeholder:text-green-300/50 focus:border-green-400 transition-all duration-300"
+                  />
+                </div>
 
-              <div className="flex gap-4">
-                <motion.div 
-                  className="flex-1"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={!projectData.contact.name || !projectData.contact.email}
-                    className="w-full bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-black font-mono font-bold shadow-lg shadow-green-400/25 transform hover:scale-105 transition-all duration-300"
+                <div className="flex gap-4">
+                  <motion.div 
+                    className="flex-1"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Send className="w-4 h-4 mr-2" />
-                    SUBMIT PROJECT BRIEF
-                  </Button>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button
-                    onClick={handleDownloadPDF}
-                    variant="outline"
-                    className="border-green-400 text-green-400 hover:bg-green-400/10 font-mono transform hover:scale-105 transition-all duration-300"
+                    <Button
+                      type="submit"
+                      disabled={!projectData.contact.name || !projectData.contact.email}
+                      className="w-full bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-black font-mono font-bold shadow-lg shadow-green-400/25 transform hover:scale-105 transition-all duration-300"
+                    >
+                      <Send className="w-4 h-4 mr-2" />
+                      SUBMIT PROJECT BRIEF
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Download className="w-4 h-4 mr-2" />
-                    DOWNLOAD PDF
-                  </Button>
-                </motion.div>
-              </div>
+                    <Button
+                      onClick={handleDownloadPDF}
+                      type="button"
+                      variant="outline"
+                      className="border-green-400 text-green-400 hover:bg-green-400/10 font-mono transform hover:scale-105 transition-all duration-300"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      DOWNLOAD PDF
+                    </Button>
+                  </motion.div>
+                </div>
+              </form>
             </motion.div>
           )}
 

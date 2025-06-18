@@ -6,48 +6,54 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, Github, Linkedin, Send, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import EazyLabsLogo from '../../public/EazyLabs logo.png';
-import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { useState, useRef } from "react";
 
 export const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('idle');
 
     try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([formData]);
+      const formData = new FormData(e.currentTarget);
+      const data = Object.fromEntries(formData.entries());
+      
+      console.log('Submitting contact form:', data);
 
-      if (error) throw error;
+      const response = await fetch('https://formspree.io/f/xpwrljva', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
 
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      console.log('Formspree response status:', response.status);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        console.error('Formspree error response:', errorData);
+        throw new Error(`Failed to send message: ${response.status} ${response.statusText}`);
+      }
+
+      const responseData = await response.json();
+      console.log('Formspree success response:', responseData);
+
       toast.success("Message sent! I'll get back to you within 24 hours.");
+      
+      // Reset form using the ref
+      if (formRef.current) {
+        formRef.current.reset();
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus('error');
-      toast.error("Failed to send message. Please try again.");
+      console.error('Submit error:', error);
+      toast.error(error instanceof Error ? error.message : "Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
   };
 
   const contactInfo = [
@@ -112,7 +118,7 @@ export const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-8">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -122,14 +128,16 @@ export const Contact = () => {
           >
             <Card className="p-8 bg-black/80 backdrop-blur-lg border-green-400/30 shadow-2xl shadow-green-400/10">
               <h3 className="text-2xl font-bold text-green-400 mb-6 font-mono">SEND A MESSAGE</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <Input
+                    name="name"
                     placeholder="Your Name"
                     required
                     className="bg-black/60 border-green-400/30 text-green-300 placeholder:text-green-300/50 font-mono focus:border-green-400 transition-all duration-300"
                   />
                   <Input
+                    name="email"
                     type="email"
                     placeholder="Your Email"
                     required
@@ -137,21 +145,24 @@ export const Contact = () => {
                   />
                 </div>
                 <Input
+                  name="subject"
                   placeholder="Subject"
                   required
                   className="bg-black/60 border-green-400/30 text-green-300 placeholder:text-green-300/50 font-mono focus:border-green-400 transition-all duration-300"
                 />
                 <Textarea
+                  name="message"
                   placeholder="Tell me about your project..."
                   required
                   className="bg-black/60 border-green-400/30 text-green-300 placeholder:text-green-300/50 min-h-32 font-mono focus:border-green-400 transition-all duration-300"
                 />
                 <Button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-black font-mono font-bold py-3 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-green-400/25"
                 >
                   <Send className="w-4 h-4 mr-2" />
-                  SEND MESSAGE
+                  {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
                 </Button>
               </form>
             </Card>
